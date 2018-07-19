@@ -31,18 +31,19 @@ class Book(models.Model):
     # Author as a string rather than object because it hasn't been declared yet in the file.
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
     isbn = models.CharField('ISBN', max_length=13,
-                            help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
+                            help_text='13 Character <a href='
+                            '"https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
-    bookcover = models.TextField(help_text='Upload bookcover',null=True, blank=True)
+    bookcover = models.TextField(help_text='Upload bookcover', null=True, blank=True)
 
     def display_genre(self):
         """
-        Creates a string for the Genre. This is required to display genre in Admin.
+        Creates a string for the Genre. This is required to display genre in Admin section.
         """
-        return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
     display_genre.short_description = 'Genre'
 
     def get_absolute_url(self):
@@ -50,7 +51,6 @@ class Book(models.Model):
         Returns the url to access a particular author instance.
         """
         return reverse('book-detail', args=[str(self.id)])
-
 
     def __str__(self):
         """
@@ -66,6 +66,8 @@ class Book(models.Model):
 
 
 import uuid  # Required for unique book instances
+
+
 class BookInstance(models.Model):
     """
     Model representing a specific copy of a book (i.e. that can be borrowed from the library).
@@ -101,8 +103,6 @@ class BookInstance(models.Model):
         if self.due_back and date.today() > self.due_back:
             return True
         return False
-
-
 
 
 class Author(models.Model):
