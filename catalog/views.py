@@ -47,6 +47,7 @@ class BookListView(generic.ListView):
         context['book_list_info'] = 'list of all books'
         return context
 
+
 class BookDetailView(generic.DetailView):
     model = Book
 
@@ -65,12 +66,13 @@ class BookDetailView(generic.DetailView):
 #         context={'book': book_id, }
 #     )
 
+
 class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 3
-    #context_object_name = 'my_book_list'   # your own name for the list as a template variable
-    #queryset = Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
-    #template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
+    # context_object_name = 'my_book_list'   # your own name for the list as a template variable
+    # queryset = Book.objects.filter(title__icontains='war')[:5] # Get 5 books containing the title war
+    # template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
     template_name = 'my_author_list.html'
 
     def get_queryset(self):
@@ -83,6 +85,7 @@ class AuthorListView(generic.ListView):
         # Create any data and add it to the context
         context['author_list_info'] = 'list of all authors'
         return context
+
 
 class AuthorDetailView(generic.DetailView):
     model = Author
